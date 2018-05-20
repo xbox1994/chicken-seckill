@@ -19,7 +19,7 @@ public class DemoController {
 
     @GetMapping("/redis/1")
     public String test(Model model) {
-        redisService.set(UserKey.getByName, "a", User.builder().id(1).build());
+        redisService.set(UserKey.getByName, "a", User.builder().id(1L).build());
         model.addAttribute("name", redisService.get(UserKey.getByName, "a", User.class));
         return "hello";
     }
@@ -27,7 +27,7 @@ public class DemoController {
     @GetMapping("/redis/set")
     @ResponseBody
     public Result<Boolean> setUser() {
-        redisService.set(UserKey.getByName, "a", User.builder().id(1).build());
+        redisService.set(UserKey.getByName, "a", User.builder().id(1L).build());
         return Result.success(true);
     }
 
