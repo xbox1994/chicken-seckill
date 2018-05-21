@@ -8,7 +8,8 @@ import org.springframework.web.bind.support.WebDataBinderFactory;
 import org.springframework.web.context.request.NativeWebRequest;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.method.support.ModelAndViewContainer;
-import top.tywang.seckill.domain.User;
+import top.tywang.seckill.domain.SecKillUser;
+import top.tywang.seckill.service.SecKillUserService;
 import top.tywang.seckill.service.UserService;
 
 import javax.servlet.http.Cookie;
@@ -19,11 +20,11 @@ import javax.servlet.http.HttpServletResponse;
 public class UserArgumentResolver implements HandlerMethodArgumentResolver {
 
     @Autowired
-    UserService userService;
+    SecKillUserService userService;
 
     public boolean supportsParameter(MethodParameter parameter) {
         Class<?> clazz = parameter.getParameterType();
-        return clazz == User.class;
+        return clazz == SecKillUser.class;
     }
 
     public Object resolveArgument(MethodParameter parameter, ModelAndViewContainer mavContainer,
@@ -31,8 +32,8 @@ public class UserArgumentResolver implements HandlerMethodArgumentResolver {
         HttpServletRequest request = webRequest.getNativeRequest(HttpServletRequest.class);
         HttpServletResponse response = webRequest.getNativeResponse(HttpServletResponse.class);
 
-        String paramToken = request.getParameter(UserService.COOKIE_NAME_TOKEN);
-        String cookieToken = getCookieValue(request, UserService.COOKIE_NAME_TOKEN);
+        String paramToken = request.getParameter(SecKillUserService.COOKIE_NAME_TOKEN);
+        String cookieToken = getCookieValue(request, SecKillUserService.COOKIE_NAME_TOKEN);
         if (StringUtils.isEmpty(cookieToken) && StringUtils.isEmpty(paramToken)) {
             return null;
         }
