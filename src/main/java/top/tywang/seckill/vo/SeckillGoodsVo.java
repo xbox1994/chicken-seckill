@@ -14,7 +14,7 @@ import java.util.Date;
  * Time: 18:35
  */
 @Data
-public class GoodsVo extends Goods {
+public class SeckillGoodsVo extends Goods {
     private Double miaoshaPrice;
     private Integer stockCount;
     private Date startDate;

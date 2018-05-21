@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import top.tywang.seckill.redis.RedisService;
 import top.tywang.seckill.result.Result;
 import top.tywang.seckill.service.SecKillUserService;
-import top.tywang.seckill.service.UserService;
 import top.tywang.seckill.vo.LoginVo;
 
 import javax.servlet.http.HttpServletResponse;

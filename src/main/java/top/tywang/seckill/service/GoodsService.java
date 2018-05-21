@@ -4,29 +4,29 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import top.tywang.seckill.dao.GoodsDao;
+import top.tywang.seckill.dao.SeckillGoodsDao;
 import top.tywang.seckill.domain.SecKillGoods;
-import top.tywang.seckill.vo.GoodsVo;
+import top.tywang.seckill.vo.SeckillGoodsVo;
 
 
 @Service
 public class GoodsService {
 
     @Autowired
-    GoodsDao goodsDao;
+    SeckillGoodsDao seckillGoodsDao;
 
-    public List<GoodsVo> listGoodsVo() {
-        return goodsDao.listGoodsVo();
+    public List<SeckillGoodsVo> listGoodsVo() {
+        return seckillGoodsDao.listSeckillGoodsVo();
     }
 
-    public GoodsVo getGoodsVoByGoodsId(long goodsId) {
-        return goodsDao.getGoodsVoByGoodsId(goodsId);
+    public SeckillGoodsVo getGoodsVoByGoodsId(long goodsId) {
+        return seckillGoodsDao.getSeckillGoodsVoByGoodsId(goodsId);
     }
 
-    public void reduceStock(GoodsVo goods) {
+    public void reduceStock(SeckillGoodsVo goods) {
         SecKillGoods g = new SecKillGoods();
         g.setGoodsId(goods.getId());
-        goodsDao.reduceStock(g);
+        seckillGoodsDao.reduceStock(g);
     }
 
 

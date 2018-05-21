@@ -9,7 +9,7 @@ import top.tywang.seckill.dao.OrderDao;
 import top.tywang.seckill.domain.OrderInfo;
 import top.tywang.seckill.domain.SecKillOrder;
 import top.tywang.seckill.domain.SecKillUser;
-import top.tywang.seckill.vo.GoodsVo;
+import top.tywang.seckill.vo.SeckillGoodsVo;
 
 
 @Service
@@ -18,12 +18,12 @@ public class OrderService {
 	@Autowired
 	OrderDao orderDao;
 	
-	public SecKillOrder getMiaoshaOrderByUserIdGoodsId(long userId, long goodsId) {
-		return orderDao.getMiaoshaOrderByUserIdGoodsId(userId, goodsId);
+	public SecKillOrder getSeckillOrderByUserIdGoodsId(long userId, long goodsId) {
+		return orderDao.getSeckillOrderByUserIdGoodsId(userId, goodsId);
 	}
 
 	@Transactional
-	public OrderInfo createOrder(SecKillUser user, GoodsVo goods) {
+	public OrderInfo createOrder(SecKillUser user, SeckillGoodsVo goods) {
 		OrderInfo orderInfo = new OrderInfo();
 		orderInfo.setCreateDate(new Date());
 		orderInfo.setDeliveryAddrId(0L);
@@ -35,11 +35,11 @@ public class OrderService {
 		orderInfo.setStatus(0);
 		orderInfo.setUserId(user.getId());
 		long orderId = orderDao.insert(orderInfo);
-		SecKillOrder miaoshaOrder = new SecKillOrder();
-		miaoshaOrder.setGoodsId(goods.getId());
-		miaoshaOrder.setOrderId(orderId);
-		miaoshaOrder.setUserId(user.getId());
-		orderDao.insertMiaoshaOrder(miaoshaOrder);
+		SecKillOrder seckillOrder = new SecKillOrder();
+		seckillOrder.setGoodsId(goods.getId());
+		seckillOrder.setOrderId(orderId);
+		seckillOrder.setUserId(user.getId());
+		orderDao.insertSeckillOrder(seckillOrder);
 		return orderInfo;
 	}
 	

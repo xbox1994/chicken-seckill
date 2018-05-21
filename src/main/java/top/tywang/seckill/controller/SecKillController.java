@@ -14,7 +14,7 @@ import top.tywang.seckill.service.GoodsService;
 import top.tywang.seckill.service.OrderService;
 import top.tywang.seckill.service.SecKillService;
 import top.tywang.seckill.service.SecKillUserService;
-import top.tywang.seckill.vo.GoodsVo;
+import top.tywang.seckill.vo.SeckillGoodsVo;
 
 /**
  * Created with IntelliJ IDEA.
@@ -41,7 +41,7 @@ public class SecKillController {
     OrderService orderService;
 
     @Autowired
-    SecKillService miaoshaService;
+    SecKillService seckillService;
 
     @RequestMapping("/do_seckill")
     public String list(Model model, SecKillUser user,
@@ -51,20 +51,20 @@ public class SecKillController {
             return "login";
         }
         //判断库存
-        GoodsVo goods = goodsService.getGoodsVoByGoodsId(goodsId);
+        SeckillGoodsVo goods = goodsService.getGoodsVoByGoodsId(goodsId);
         int stock = goods.getStockCount();
         if(stock <= 0) {
-            model.addAttribute("errmsg", CodeMsg.MIAO_SHA_OVER.getMsg());
+            model.addAttribute("errmsg", CodeMsg.SECKILL_OVER.getMsg());
             return "miaosha_fail";
         }
         //判断是否已经秒杀到了
-        SecKillOrder order = orderService.getMiaoshaOrderByUserIdGoodsId(user.getId(), goodsId);
+        SecKillOrder order = orderService.getSeckillOrderByUserIdGoodsId(user.getId(), goodsId);
         if(order != null) {
-            model.addAttribute("errmsg", CodeMsg.REPEATE_MIAOSHA.getMsg());
+            model.addAttribute("errmsg", CodeMsg.SECKILL_REPEAT.getMsg());
             return "miaosha_fail";
         }
         //减库存 下订单 写入秒杀订单
-        OrderInfo orderInfo = miaoshaService.secKill(user, goods);
+        OrderInfo orderInfo = seckillService.secKill(user, goods);
         model.addAttribute("orderInfo", orderInfo);
         model.addAttribute("goods", goods);
         return "order_detail";
