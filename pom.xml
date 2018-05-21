@@ -26,6 +26,13 @@
                 <role>Project Lead</role>
             </roles>
         </developer>
+        <developer>
+            <name>wei dong</name>
+            <email>dongwei2016@gmail.com</email>
+            <roles>
+                <role>Project follower</role>
+            </roles>
+        </developer>
     </developers>
 
     <parent>
@@ -55,6 +62,17 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-configuration-processor</artifactId>
+            <optional>true</optional>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
         </dependency>
 
         <dependency>
