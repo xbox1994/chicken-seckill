@@ -1,16 +1,24 @@
 package top.tywang.seckill.controller;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.thymeleaf.spring4.context.SpringWebContext;
+import org.thymeleaf.spring4.view.ThymeleafViewResolver;
 import top.tywang.seckill.domain.SecKillUser;
+import top.tywang.seckill.redis.GoodsKey;
 import top.tywang.seckill.redis.RedisService;
 import top.tywang.seckill.service.GoodsService;
 import top.tywang.seckill.service.UserService;
 import top.tywang.seckill.vo.SeckillGoodsVo;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 @Controller
@@ -26,13 +34,30 @@ public class GoodsController {
     @Autowired
     GoodsService goodsService;
 
-    @RequestMapping("/to_list")
-    public String list(Model model, SecKillUser user) {
+    @Autowired
+    ThymeleafViewResolver thymeleafViewResolver;
+
+    @Autowired
+    ApplicationContext applicationContext;
+
+    @RequestMapping(value = "/to_list", produces = "text/html")
+    @ResponseBody
+    public String list(HttpServletRequest request, HttpServletResponse response, Model model, SecKillUser user) {
         model.addAttribute("user", user);
-        //查询商品列表
+        //查页面缓存
+        String html = redisService.get(GoodsKey.getGoodsListHtml, "", String.class);
+        if (StringUtils.isNotEmpty(html)) {
+            return html;
+        }
+        //手动渲染
         List<SeckillGoodsVo> goodsList = goodsService.listGoodsVo();
         model.addAttribute("goodsList", goodsList);
-        return "goods_list";
+        html = thymeleafViewResolver.getTemplateEngine().process("goods_list",
+                new SpringWebContext(request, response, request.getServletContext(), request.getLocale(), model.asMap(), applicationContext));
+        if (StringUtils.isNotEmpty(html)) {
+            redisService.set(GoodsKey.getGoodsListHtml, "", html);
+        }
+        return html;
     }
 
     @RequestMapping("/to_detail/{goodsId}")
