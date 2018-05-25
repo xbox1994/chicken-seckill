@@ -40,38 +40,38 @@
         <td id="startTime"></td>
         <td >	
         	<input type="hidden" id="remainSeconds" />
-        	<span id="miaoshaTip"></span>
+        	<span id="seckillTip"></span>
         </td>
         <td>
-        <!--  
-        	<form id="miaoshaForm" method="post" action="/miaosha/do_miaosha">
+        <!--
+        	<form id="seckillForm" method="post" action="/seckill/do_seckill">
         		<button class="btn btn-primary btn-block" type="submit" id="buyButton">立即秒杀</button>
         		<input type="hidden" name="goodsId"  id="goodsId" />
         	</form>-->
-        	<button class="btn btn-primary btn-block" type="button" id="buyButton"onclick="doMiaosha()">立即秒杀</button>
+        	<button class="btn btn-primary btn-block" type="button" id="buyButton"onclick="doseckill()">立即秒杀</button>
         	<input type="hidden" name="goodsId"  id="goodsId" />
         </td>
      </tr>
-     <tr>  
-        <td>商品原价</td>  
-        <td colspan="3" id="goodsPrice"></td>  
+     <tr>
+        <td>商品原价</td>
+        <td colspan="3" id="goodsPrice"></td>
      </tr>
-      <tr>  
-        <td>秒杀价</td>  
-        <td colspan="3"  id="miaoshaPrice"></td>  
+      <tr>
+        <td>秒杀价</td>
+        <td colspan="3"  id="seckillPrice"></td>
      </tr>
-     <tr>  
-        <td>库存数量</td>  
-        <td colspan="3"  id="stockCount"></td>  
+     <tr>
+        <td>库存数量</td>
+        <td colspan="3"  id="stockCount"></td>
      </tr>
   </table>
 </div>
 </body>
 <script>
 
-function doMiaosha(){
+function doseckill(){
 	$.ajax({
-		url:"/miaosha/do_miaosha",
+		url:"/seckill/do_seckill",
 		type:"POST",
 		data:{
 			goodsId:$("#goodsId").val(),
@@ -87,11 +87,11 @@ function doMiaosha(){
 			layer.msg("客户端请求有误");
 		}
 	});
-	
+
 }
 
 function render(detail){
-	var miaoshaStatus = detail.miaoshaStatus;
+	var seckillStatus = detail.seckillStatus;
 	var  remainSeconds = detail.remainSeconds;
 	var goods = detail.goods;
 	var user = detail.user;
@@ -104,7 +104,7 @@ function render(detail){
 	$("#remainSeconds").val(remainSeconds);
 	$("#goodsId").val(goods.id);
 	$("#goodsPrice").text(goods.goodsPrice);
-	$("#miaoshaPrice").text(goods.miaoshaPrice);
+	$("#seckillPrice").text(goods.seckillPrice);
 	$("#stockCount").text(goods.stockCount);
 	countDown();
 }
@@ -117,7 +117,7 @@ $(function(){
 function getDetail(){
 	var goodsId = g_getQueryString("goodsId");
 	$.ajax({
-		url:"/goods/detail/"+goodsId,
+		url:"/goods/to_detail/"+goodsId,
 		type:"GET",
 		success:function(data){
 			if(data.code == 0){
@@ -137,7 +137,7 @@ function countDown(){
 	var timeout;
 	if(remainSeconds > 0){//秒杀还没开始，倒计时
 		$("#buyButton").attr("disabled", true);
-	   $("#miaoshaTip").html("秒杀倒计时："+remainSeconds+"秒");
+	   $("#seckillTip").html("秒杀倒计时："+remainSeconds+"秒");
 		timeout = setTimeout(function(){
 			$("#countDown").text(remainSeconds - 1);
 			$("#remainSeconds").val(remainSeconds - 1);
@@ -148,10 +148,10 @@ function countDown(){
 		if(timeout){
 			clearTimeout(timeout);
 		}
-		$("#miaoshaTip").html("秒杀进行中");
+		$("#seckillTip").html("秒杀进行中");
 	}else{//秒杀已经结束
 		$("#buyButton").attr("disabled", true);
-		$("#miaoshaTip").html("秒杀已经结束");
+		$("#seckillTip").html("秒杀已经结束");
 	}
 }
 

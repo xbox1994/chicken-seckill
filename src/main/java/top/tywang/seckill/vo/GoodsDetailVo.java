@@ -1,13 +1,14 @@
 package top.tywang.seckill.vo;
 
-
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import top.tywang.seckill.domain.SecKillUser;
-@Data
-public class GoodsDetailVo {
-	private int miaoshaStatus = 0;
-	private int remainSeconds = 0;
-	private SecKillGoodsVo goods ;
-	private SecKillUser user;
 
+@Getter
+@Setter
+public class GoodsDetailVo {
+    private int seckillStatus;
+    private int remainSeconds;
+    private SeckillGoodsVo goods;
+    private SecKillUser user;
 }
