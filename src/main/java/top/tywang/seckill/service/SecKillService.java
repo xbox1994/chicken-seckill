@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import top.tywang.seckill.domain.OrderInfo;
 import top.tywang.seckill.domain.SecKillUser;
-import top.tywang.seckill.vo.SeckillGoodsVo;
+import top.tywang.seckill.vo.SecKillGoodsVo;
 
 /**
  * Created with IntelliJ IDEA.
@@ -25,7 +25,7 @@ public class SecKillService {
     OrderService orderService;
 
     @Transactional
-    public OrderInfo secKill(SecKillUser user, SeckillGoodsVo goods) {
+    public OrderInfo secKill(SecKillUser user, SecKillGoodsVo goods) {
         //减库存 下订单 写入秒杀订单
         goodsService.reduceStock(goods);
         //order_info maiosha_order

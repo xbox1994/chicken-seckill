@@ -14,7 +14,7 @@ import top.tywang.seckill.service.GoodsService;
 import top.tywang.seckill.service.OrderService;
 import top.tywang.seckill.service.SecKillService;
 import top.tywang.seckill.service.SecKillUserService;
-import top.tywang.seckill.vo.SeckillGoodsVo;
+import top.tywang.seckill.vo.SecKillGoodsVo;
 
 /**
  * Created with IntelliJ IDEA.
@@ -51,7 +51,7 @@ public class SecKillController {
             return "login";
         }
         //判断库存
-        SeckillGoodsVo goods = goodsService.getGoodsVoByGoodsId(goodsId);
+        SecKillGoodsVo goods = goodsService.getGoodsVoByGoodsId(goodsId);
         int stock = goods.getStockCount();
         if(stock <= 0) {
             model.addAttribute("errmsg", CodeMsg.SECKILL_OVER.getMsg());

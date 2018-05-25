@@ -9,4 +9,7 @@ public class GoodsKey extends BasePrefix {
     }
 
     public static GoodsKey getGoodsListHtml = new GoodsKey(60, "glh");
+
+
+    public static GoodsKey getGoodsDetail = new GoodsKey(60, "gd");
 }

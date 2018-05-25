@@ -9,7 +9,7 @@ import top.tywang.seckill.dao.OrderDao;
 import top.tywang.seckill.domain.OrderInfo;
 import top.tywang.seckill.domain.SecKillOrder;
 import top.tywang.seckill.domain.SecKillUser;
-import top.tywang.seckill.vo.SeckillGoodsVo;
+import top.tywang.seckill.vo.SecKillGoodsVo;
 
 
 @Service
@@ -23,7 +23,7 @@ public class OrderService {
 	}
 
 	@Transactional
-	public OrderInfo createOrder(SecKillUser user, SeckillGoodsVo goods) {
+	public OrderInfo createOrder(SecKillUser user, SecKillGoodsVo goods) {
 		OrderInfo orderInfo = new OrderInfo();
 		orderInfo.setCreateDate(new Date());
 		orderInfo.setDeliveryAddrId(0L);
