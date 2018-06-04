@@ -12,14 +12,6 @@ import top.tywang.secKill.MainApplication;
 import top.tywang.secKill.domain.User;
 import top.tywang.secKill.redis.prefix.UserKey;
 
-/**
- * Created with IntelliJ IDEA.
- * Description:
- *
- * @author dongwei
- * @date 2018/05/21
- * Time: 12:51
- */
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = MainApplication.class)
 @EnableAutoConfiguration

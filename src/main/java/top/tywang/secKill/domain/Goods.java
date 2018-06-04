@@ -2,15 +2,6 @@ package top.tywang.secKill.domain;
 
 import lombok.*;
 
-/**
- * Created with IntelliJ IDEA.
- * Description:
- *
- * @author dongwei
- * @date 2018/05/21
- * Time: 18:31
- */
-
 @Getter
 @Setter
 @ToString
