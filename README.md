@@ -1,4 +1,4 @@
-# chicken-seckill
+# chicken-secKill
 一个使用Spring Boot与前后端缓存、异步任务、分布式、防刷机制来秒杀小鸡的系统
 
 * [x] 框架搭建
