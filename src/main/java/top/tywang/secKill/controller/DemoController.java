@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import top.tywang.secKill.domain.SecKillUser;
 import top.tywang.secKill.domain.User;
+import top.tywang.secKill.rabbitmq.MQSender;
 import top.tywang.secKill.redis.RedisService;
 import top.tywang.secKill.redis.prefix.UserKey;
 import top.tywang.secKill.result.Result;
@@ -19,6 +20,9 @@ import top.tywang.secKill.result.Result;
 public class DemoController {
     @Autowired
     RedisService redisService;
+
+    @Autowired
+    MQSender mqSender;
 
     @GetMapping("/redis/1")
     public String test(Model model) {
@@ -38,5 +42,12 @@ public class DemoController {
     @ResponseBody
     public Result<SecKillUser> getUser(SecKillUser user) {
         return Result.success(user);
+    }
+
+    @GetMapping("/mq")
+    @ResponseBody
+    public Result<String> hello(){
+        mqSender.send("hello,,,");
+        return Result.success("hello");
     }
 }
