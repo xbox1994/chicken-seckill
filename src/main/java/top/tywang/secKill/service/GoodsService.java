@@ -1,12 +1,12 @@
 package top.tywang.secKill.service;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import top.tywang.secKill.dao.SecKillGoodsDao;
 import top.tywang.secKill.domain.SecKillGoods;
 import top.tywang.secKill.vo.SecKillGoodsVo;
+
+import java.util.List;
 
 
 @Service
@@ -23,10 +23,10 @@ public class GoodsService {
         return secKillGoodsDao.getSecKillGoodsVoByGoodsId(goodsId);
     }
 
-    public void reduceStock(SecKillGoodsVo goods) {
+    public boolean reduceStock(SecKillGoodsVo goods) {
         SecKillGoods g = new SecKillGoods();
         g.setGoodsId(goods.getId());
-        secKillGoodsDao.reduceStock(g);
+        return secKillGoodsDao.reduceStock(g) > 0;
     }
 
 

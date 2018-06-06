@@ -11,4 +11,9 @@ public class MQConfig {
     public Queue queue() {
         return new Queue("queue");
     }
+
+    @Bean
+    public Queue secKill_queue() {
+        return new Queue("secKill_queue");
+    }
 }
