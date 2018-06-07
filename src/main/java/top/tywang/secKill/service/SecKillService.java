@@ -10,6 +10,8 @@ import top.tywang.secKill.redis.GoodsKey;
 import top.tywang.secKill.redis.RedisService;
 import top.tywang.secKill.vo.SecKillGoodsVo;
 
+import java.util.List;
+
 @Service
 public class SecKillService {
 
@@ -39,5 +41,10 @@ public class SecKillService {
         } else {
             return redisService.get(GoodsKey.getSecKillGoodsStock, goodsId + "", String.class).equals("0") ? -1 : 0;
         }
+    }
+
+    public void reset(List<SecKillGoodsVo> goodsList) {
+        goodsService.resetStock(goodsList);
+        orderService.deleteOrders();
     }
 }

@@ -22,4 +22,7 @@ public interface SecKillGoodsDao {
     @Update("update secKill_goods set stock_count = stock_count - 1 where goods_id = #{goodsId}")
     int reduceStock(SecKillGoods g);
 
+    @Update("update secKill_goods set stock_count = #{stockCount} where goods_id = #{goodsId}")
+    int resetStock(SecKillGoods g);
+
 }

@@ -1,11 +1,6 @@
 package top.tywang.secKill.dao;
 
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.SelectKey;
-
+import org.apache.ibatis.annotations.*;
 import top.tywang.secKill.domain.OrderInfo;
 import top.tywang.secKill.domain.SecKillOrder;
 
@@ -26,5 +21,10 @@ public interface OrderDao {
     @Select("select * from order_info where id = #{orderId}")
     OrderInfo getOrderById(@Param("orderId")long orderId);
 
+    @Delete("delete from order_info")
+    void deleteOrders();
+
+    @Delete("delete from secKill_order")
+    void deleteMiaoshaOrders();
 
 }

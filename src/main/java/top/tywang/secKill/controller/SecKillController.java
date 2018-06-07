@@ -93,6 +93,19 @@ public class SecKillController implements InitializingBean {
         return Result.success(result);
     }
 
+
+    @RequestMapping(value="/reset", method=RequestMethod.GET)
+    @ResponseBody
+    public Result<Boolean> reset(Model model) {
+        List<SecKillGoodsVo> goodsList = goodsService.listGoodsVo();
+        for(SecKillGoodsVo goods : goodsList) {
+            goods.setStockCount(100);
+            redisService.set(GoodsKey.getSecKillGoodsStock, ""+goods.getId(), 100);
+        }
+        secKillService.reset(goodsList);
+        return Result.success(true);
+    }
+
     @Override
     public void afterPropertiesSet() throws Exception {
         List<SecKillGoodsVo> secKillGoodsVos = goodsService.listGoodsVo();

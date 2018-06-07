@@ -30,4 +30,14 @@ public class GoodsService {
     }
 
 
+    public void resetStock(List<SecKillGoodsVo> goodsList) {
+        for(SecKillGoodsVo goods : goodsList ) {
+            SecKillGoods g = new SecKillGoods();
+            g.setGoodsId(goods.getId());
+            g.setStockCount(goods.getStockCount());
+            secKillGoodsDao.resetStock(g);
+        }
+    }
+
+
 }
