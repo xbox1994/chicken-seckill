@@ -1,3 +1,4 @@
 .idea
 target
-chicken-secKill.iml
+*.iml
+.DS_Store
